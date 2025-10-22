@@ -348,6 +348,10 @@ typedef matrix<float64_t, 4, 2> float64_t4x2;
 typedef matrix<float64_t, 4, 3> float64_t4x3;
 typedef matrix<float64_t, 4, 4> float64_t4x4;
 
+struct BuiltInTriangleIntersectionAttributes {
+  float2 barycentrics;
+};
+
 } // namespace hlsl
 
 #endif //_HLSL_HLSL_BASIC_TYPES_H_

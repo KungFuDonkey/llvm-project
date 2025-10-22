@@ -9,6 +9,8 @@
 #ifndef _HLSL_H_
 #define _HLSL_H_
 
+#pragma pack(4)
+
 #if defined(__clang__)
 // Don't warn about any of the DXC compatibility warnings in the clang-only
 // headers since these will never be used with DXC anyways.

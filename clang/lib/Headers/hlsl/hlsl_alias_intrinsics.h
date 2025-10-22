@@ -2343,6 +2343,23 @@ _HLSL_BUILTIN_ALIAS(__builtin_elementwise_trunc)
 float4 trunc(float4);
 
 //===----------------------------------------------------------------------===//
+// f16tof32 builtins
+//===----------------------------------------------------------------------===//
+
+/// \fn T trunc(T Val)
+/// \brief Returns the truncated integer value of the input value, \a Val.
+/// \param Val The input value.
+
+_HLSL_BUILTIN_ALIAS(__builtin_elementwise_trunc)
+float f16tof32(uint);
+_HLSL_BUILTIN_ALIAS(__builtin_elementwise_trunc)
+float2 f16tof32(uint2);
+_HLSL_BUILTIN_ALIAS(__builtin_elementwise_trunc)
+float3 f16tof32(uint3);
+_HLSL_BUILTIN_ALIAS(__builtin_elementwise_trunc)
+float4 f16tof32(uint4);
+
+//===----------------------------------------------------------------------===//
 // Wave* builtins
 //===----------------------------------------------------------------------===//
 
@@ -4878,6 +4895,35 @@ _HLSL_BUILTIN_ALIAS(__builtin_hlsl_elementwise_radians)
 float4 radians(float4);
 
 //===----------------------------------------------------------------------===//
+// transpose builtins
+//===----------------------------------------------------------------------===//
+
+/// \fn T transpose(T Val)
+/// \brief Converts the specified value from degrees to radians.
+
+_HLSL_BUILTIN_ALIAS(__builtin_hlsl_elementwise_radians)
+template <typename T, int Sx, int Sy>
+matrix<T, Sy, Sx> transpose(matrix<T, Sx, Sy>);
+
+//===----------------------------------------------------------------------===//
+// mul builtins
+//===----------------------------------------------------------------------===//
+
+/// \fn T mul(T Val)
+/// \brief Converts the specified value from degrees to radians.
+
+_HLSL_BUILTIN_ALIAS(__builtin_hlsl_elementwise_radians)
+template <typename T, int Sx, int Sy>
+vector<T, Sy> mul(vector<T, Sy>, matrix<T, Sx, Sy>);
+
+/// \fn T mul(T Val)
+/// \brief Converts the specified value from degrees to radians.
+
+_HLSL_BUILTIN_ALIAS(__builtin_hlsl_elementwise_radians)
+template <typename T, int Sx, int Sy>
+vector<T, Sx> mul(matrix<T, Sx, Sy>, vector<T, Sx>);
+
+//===----------------------------------------------------------------------===//
 // MemoryBarrier builtins
 //===----------------------------------------------------------------------===//
 
@@ -4903,6 +4949,11 @@ __attribute__((convergent)) void AllMemoryBarrier(void);
 
 _HLSL_BUILTIN_ALIAS(__builtin_hlsl_all_memory_barrier_with_group_sync)
 __attribute__((convergent)) void AllMemoryBarrierWithGroupSync(void);
+
+_HLSL_BUILTIN_ALIAS(__builtin_hlsl_all_memory_barrier_with_group_sync)
+__attribute__((convergent)) uint DispatchRaysIndex(void);
+
+#define globallycoherent
 
 } // namespace hlsl
 #endif //_HLSL_HLSL_ALIAS_INTRINSICS_H_

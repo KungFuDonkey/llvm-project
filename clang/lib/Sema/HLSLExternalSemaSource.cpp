@@ -480,6 +480,7 @@ void HLSLExternalSemaSource::defineHLSLTypesWithForwardDeclarations() {
   onCompletion(Decl, [this](CXXRecordDecl *Decl) {
     setupBufferType(Decl, *SemaPtr, ResourceClass::UAV, /*IsROV=*/false,
                     /*RawBuffer=*/true, /*HasCounter=*/false)
+        .addLoadMethods()
         .completeDefinition();
   });
   CompleteType(Decl);
@@ -500,6 +501,45 @@ void HLSLExternalSemaSource::defineHLSLTypesWithForwardDeclarations() {
   onCompletion(Decl, [this](CXXRecordDecl *Decl) {
     setupBufferType(Decl, *SemaPtr, ResourceClass::CBuffer, /*IsROV=*/true,
                     /*RawBuffer=*/false, /*HasCounter=*/false)
+        .completeDefinition();
+  });
+  CompleteType(Decl);
+
+  Decl = BuiltinTypeDeclBuilder(*SemaPtr, HLSLNamespace, "RWTexture1D")
+             .addSimpleTemplateParams({"element_type"}, TypedBufferConcept)
+             .finalizeForwardDeclaration();
+
+  onCompletion(Decl, [this](CXXRecordDecl *Decl) {
+    setupBufferType(Decl, *SemaPtr, ResourceClass::UAV, /*IsROV=*/false,
+                    /*RawBuffer=*/false, /*HasCounter=*/false)
+        .addArraySubscriptOperators()
+        .addLoadMethods()
+        .completeDefinition();
+  });
+  CompleteType(Decl);
+
+  Decl = BuiltinTypeDeclBuilder(*SemaPtr, HLSLNamespace, "RWTexture2D")
+             .addSimpleTemplateParams({"element_type"}, TypedBufferConcept)
+             .finalizeForwardDeclaration();
+
+  onCompletion(Decl, [this](CXXRecordDecl *Decl) {
+    setupBufferType(Decl, *SemaPtr, ResourceClass::UAV, /*IsROV=*/false,
+                    /*RawBuffer=*/false, /*HasCounter=*/false)
+        .addArraySubscriptOperators()
+        .addLoadMethods()
+        .completeDefinition();
+  });
+  CompleteType(Decl);
+
+  Decl = BuiltinTypeDeclBuilder(*SemaPtr, HLSLNamespace, "RWTexture3D")
+             .addSimpleTemplateParams({"element_type"}, TypedBufferConcept)
+             .finalizeForwardDeclaration();
+
+  onCompletion(Decl, [this](CXXRecordDecl *Decl) {
+    setupBufferType(Decl, *SemaPtr, ResourceClass::UAV, /*IsROV=*/false,
+                    /*RawBuffer=*/false, /*HasCounter=*/false)
+        .addArraySubscriptOperators()
+        .addLoadMethods()
         .completeDefinition();
   });
   CompleteType(Decl);
